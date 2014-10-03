@@ -42,30 +42,23 @@ class User:
         other.students.append(self)
         self.coaches.append(other)
 
-if __name__ == "__main__":
-    # Example relationship tree
-    #            u5--|
-    #            |   |
-    #            u1  |
-    #           /  \ |
-    #         u2   u3-
-    #         |
-    #        u4
-    u1 = User("u1", 1)
-    u2 = User("u2", 1)
-    u3 = User("u3", 1)
-    u4 = User("u4", 1)
-    u5 = User("u5", 1)
+    def remove_student(self, other):
+        if other not in self.students:
+            print other.name + " is not a student of " + self.name
+            return
+        other.coaches.remove(self)
+        self.students.remove(other)
 
-    u1.add_student(u2)
-    u1.add_student(u2)
-    u1.add_student(u3)
-    u2.add_student(u4)
-    u1.add_coach(u5)
-    u3.add_student(u5)
+    def remove_coach(self, other):
+        if other not in self.coaches:
+            print other.name + " is not a coach of " + self.name
+            return
+        other.students.remove(self)
+        self.coaches.remove(other)
 
-    print u1
-    print u2
-    print u3
-    print u4
-    print u5
+    def num_infected_students(self, version):
+        """
+        :param version: version we are infecting with
+        :return: number of students without version
+        """
+        return len([s for s in self.students if s.version == version])
