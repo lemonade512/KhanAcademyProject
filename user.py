@@ -1,6 +1,7 @@
 __author__ = 'Phillip Lemons'
 # TODO add remove_student and remove_coach
 
+
 class User:
     def __init__(self, name, version, coaches=None, students=None):
         '''
@@ -16,9 +17,9 @@ class User:
         if students is None:
             self.students = list()
         else:
-            self.students = studenst
+            self.students = students
 
-        self.software_version = version
+        self.version = version
         self.name = name
 
     def __repr__(self):
