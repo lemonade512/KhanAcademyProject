@@ -69,7 +69,6 @@ class UserNetwork:
         :return: best user to infect next (for limited infection)
         """
         # List of tuples where tuple is (user, num_infected_students)
-        # TODO filter this with only users with some uninfected students
         best_user_list = [(u, u.num_infected_students(version)) for u in self.users
                           if u.num_infected_students(version) != len(u.students) or u.version != version]
 
