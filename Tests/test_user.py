@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.abspath(__file__)+"/..")
+
 import unittest
 from user import User, DuplicateCoachError, DuplicateStudentError, MissingStudentError, MissingCoachError
 

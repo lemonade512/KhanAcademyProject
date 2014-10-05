@@ -67,7 +67,6 @@ class UserNetwork:
         # Checks to make sure we don't have a target_num greater than number of uninfected users
         uninfected = [u for u in self.users if u.version != version]
         if target_num > len(uninfected):
-            print "Target num is too high! Infecting all users..."
             self.infect_all(version)
 
         while num_infected < target_num:

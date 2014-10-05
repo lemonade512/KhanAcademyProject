@@ -11,6 +11,7 @@ __author__ = 'Phillip Lemons'
 red = Color(255, 0, 0, 240, base=255, colorspace=RGB)
 green = Color(0, 255, 0, 240, base=255, colorspace=RGB)
 blue = Color(0, 0, 255, 240, base=255, colorspace=RGB)
+DEFAULT_NODE_COLOR = Color(230, 230, 230, 240, base=255, colorspace=RGB)
 
 
 class DirectedGraph(Graph):

@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.abspath(__file__)+"/..")
+
 import unittest
 from user import User
 from user_network import UserNetwork, NonExistentUserError, DuplicateUserError

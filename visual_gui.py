@@ -73,7 +73,9 @@ class DraggableCanvas(Canvas):
 
         self.pressed = False
 
-        self.background = Color(7, 148, 0, 255, base=255, colorspace=RGB)
+        #self.background = Color(76, 25, 179, 255, base=255, colorspace=RGB)
+        #self.background = Color(25, 179, 81, 255, base=255, colorspace=RGB)
+        self.background = Color(0, 56, 209, 255, base=255, colorspace=RGB)
 
     def on_mouse_drag(self, mouse):
         """
