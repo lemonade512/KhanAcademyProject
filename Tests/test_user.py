@@ -11,6 +11,9 @@ __author__ = 'Phillip Lemons'
 class TestUser(unittest.TestCase):
 
     def test_user_add_single_coach(self):
+        """
+        Tests adding a single coach to a user's coaches
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u1.add_coach(u2)
@@ -21,6 +24,9 @@ class TestUser(unittest.TestCase):
         self.assertTrue(u1 in u2.students)
 
     def test_user_add_multiple_coaches(self):
+        """
+        Tests adding multiple coaches to a user's coaches
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u3 = User("u3", 1)
@@ -38,6 +44,9 @@ class TestUser(unittest.TestCase):
         self.assertTrue(u1 in u3.students)
 
     def test_user_add_duplicate_coaches(self):
+        """
+        Tests that an error is raised when duplicate coaches are added
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u1.add_coach(u2)
@@ -50,6 +59,9 @@ class TestUser(unittest.TestCase):
         self.assertTrue(u1 in u2.students)
 
     def test_user_add_single_student(self):
+        """
+        Tests adding a single student to a user's students.
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u1.add_student(u2)
@@ -61,6 +73,9 @@ class TestUser(unittest.TestCase):
         self.assertTrue(u1 in u2.coaches)
 
     def test_user_add_multiple_students(self):
+        """
+        Tests adding multiple students to a user's students
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u3 = User("u3", 1)
@@ -78,6 +93,9 @@ class TestUser(unittest.TestCase):
         self.assertTrue(u1 in u3.coaches)
 
     def test_user_add_duplicate_students(self):
+        """
+        Tests that an error is raised when duplicate students are added
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u1.add_student(u2)
@@ -90,6 +108,9 @@ class TestUser(unittest.TestCase):
         self.assertTrue(u1 in u2.coaches)
 
     def test_user_remove_single_student(self):
+        """
+        Tests removing a student from a user's students
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u1.add_student(u2)
@@ -102,6 +123,9 @@ class TestUser(unittest.TestCase):
         self.assertFalse(u1 in u2.coaches)
 
     def test_user_remove_multiple_students_same_name(self):
+        """
+        Tests removing students with the same name
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u3 = User("u2", 1)
@@ -123,6 +147,9 @@ class TestUser(unittest.TestCase):
         self.assertFalse(u1 in u2.coaches)
 
     def test_user_double_remove_student(self):
+        """
+        Tests that an error is raised when double removing a student
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u1.add_student(u2)
@@ -134,6 +161,9 @@ class TestUser(unittest.TestCase):
         self.assertFalse(u1 in u2.coaches)
 
     def test_user_remove_single_coach(self):
+        """
+        Tests removing a coach from a user's coaches
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u1.add_coach(u2)
@@ -144,6 +174,9 @@ class TestUser(unittest.TestCase):
         self.assertFalse(u1 in u2.students)
 
     def test_user_remove_multiple_coaches_same_name(self):
+        """
+        Tests removing multiple coaches with the same name
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u3 = User("u2", 1)
@@ -158,6 +191,9 @@ class TestUser(unittest.TestCase):
         self.assertTrue(u1 in u3.students)
 
     def test_user_double_remove_coach(self):
+        """
+        Tests that an error is raised when double removing a coach
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u1.add_coach(u2)
@@ -169,6 +205,9 @@ class TestUser(unittest.TestCase):
         self.assertFalse(u2 in u1.coaches)
 
     def test_user_num_infected_students(self):
+        """
+        Tests the calculation of the number of infected students of a user.
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 2)
         u3 = User("u3", 2)

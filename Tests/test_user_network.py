@@ -7,9 +7,6 @@ from user import User
 from user_network import UserNetwork, NonExistentUserError, DuplicateUserError
 
 __author__ = 'Phillip Lemons'
-#TODO test adding duplicate user
-#TODO test circular relationships?
-#TODO test limited infection
 
 
 class TestUserNetwork(unittest.TestCase):
@@ -67,6 +64,9 @@ class TestUserNetwork(unittest.TestCase):
                 "H": H, "I": I, "J": J}, network
 
     def test_add_user(self):
+        """
+        Tests adding a user to a network.
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
 
@@ -81,12 +81,18 @@ class TestUserNetwork(unittest.TestCase):
         self.assertTrue(u2 in network.users)
 
     def test_add_duplicate_user(self):
+        """
+        Tests adding a user twice will throw an error.
+        """
         u1 = User("u1", 1)
         network = UserNetwork()
         network.add_user(u1)
         self.assertRaises(DuplicateUserError, network.add_user, u1)
 
     def test_remove_user(self):
+        """
+        Tests removing a user from a network.
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
 
@@ -105,6 +111,9 @@ class TestUserNetwork(unittest.TestCase):
         self.assertFalse(u1 in network.users)
 
     def test_double_remove_user(self):
+        """
+        Tests double removing a user will throw an error.
+        """
         u1 = User("u1", 1)
         network = UserNetwork()
         network.add_user(u1)
@@ -112,6 +121,10 @@ class TestUserNetwork(unittest.TestCase):
         self.assertRaises(NonExistentUserError, network.remove_user, u1)
 
     def test_basic_total_infection(self):
+        """
+        Basic test of the total infection algorithm. There are 3 users such that user 1 coaches
+        user 2 and user 2 coaches user 3. All of the users should be infected.
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u3 = User("u3", 1)
@@ -139,6 +152,10 @@ class TestUserNetwork(unittest.TestCase):
         self.assertEqual(u3.version, 4)
 
     def test_unconnected_total_infection(self):
+        """
+        Tests the total infection algorithm with 3 unconnected users.
+        Each time the algorithm is called, only one user should be infected.
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u3 = User("u3", 1)
@@ -164,6 +181,10 @@ class TestUserNetwork(unittest.TestCase):
         self.assertEqual(u3.version, 4)
 
     def test_some_connected_total_infection(self):
+        """
+        Tests total infection of a network where only some of the users are connected to each other.
+        Each time the algorithm is called, only one connected portion of the network should be infected.
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u3 = User("u3", 1)
@@ -236,6 +257,10 @@ class TestUserNetwork(unittest.TestCase):
         self.assertAllNotInfected(group_1, 4)
 
     def test_basic_limited_infection(self):
+        """
+        Tests the limited infection algorithm on a network of 3 users such that user 1 coaches user 2 and
+        user 2 coaches user 3.
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u3 = User("u3", 1)
@@ -264,6 +289,9 @@ class TestUserNetwork(unittest.TestCase):
         self.assertEqual(u3.version, 4)
 
     def test_unconnected_limited_infection(self):
+        """
+        Tests the limited infection algorithm with a group of 3 unconnected users.
+        """
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u3 = User("u3", 1)
@@ -295,10 +323,14 @@ class TestUserNetwork(unittest.TestCase):
         self.assertTrue(u1.version == 5 or u3.version == 5)
 
     def test_case_1_limited_infection(self):
+        """
+        Limited infection for test case 1. For a visual representation of the users in test case 1 see
+        TestCase1.png. For each section of the test you can see what users are infected and what users are
+        uninfected by looking at the infected and uninfected lists.
+        """
         u_dict, network = self.case_1_setup()
 
         network.limited_infection(u_dict["A"], 3, 2)
-        # TODO sometimes goes over limit (3)
         infected = [u_dict[u] for u in ["A", "B", "C", "D"]]
         uninfected = [u_dict[u] for u in ["E", "F", "G", "H", "I", "J"]]
         self.assertAllInfected(infected, 2)
@@ -311,7 +343,6 @@ class TestUserNetwork(unittest.TestCase):
         self.assertAllNotInfected(uninfected, 3)
 
         network.limited_infection(u_dict["F"], 3, 4)
-        # TODO make sure the algorithm picks best user to infect
         infected = [u_dict[u] for u in ["F", "B", "E"]]
         uninfected = [u_dict[u] for u in ["A", "C", "D", "G", "H", "I", "J"]]
         self.assertAllInfected(infected, 4)
@@ -344,6 +375,10 @@ class TestUserNetwork(unittest.TestCase):
         self.assertAllNotInfected(uninfected, 8)
 
     def test_case_1_limited_infection_too_many(self):
+        """
+        Tests limited infection when given a number higher than the number of users in the network.
+        This should infect every user.
+        """
         u_dict, network = self.case_1_setup()
 
         # Test when we want to infect more users than we have
