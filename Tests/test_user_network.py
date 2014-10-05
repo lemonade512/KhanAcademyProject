@@ -1,6 +1,6 @@
 import unittest
 from user import User
-from user_network import UserNetwork
+from user_network import UserNetwork, NonExistentUserError, DuplicateUserError
 
 __author__ = 'Phillip Lemons'
 #TODO test adding duplicate user
@@ -76,6 +76,12 @@ class TestUserNetwork(unittest.TestCase):
         self.assertTrue(u1 in network.users)
         self.assertTrue(u2 in network.users)
 
+    def test_add_duplicate_user(self):
+        u1 = User("u1", 1)
+        network = UserNetwork()
+        network.add_user(u1)
+        self.assertRaises(DuplicateUserError, network.add_user, u1)
+
     def test_remove_user(self):
         u1 = User("u1", 1)
         u2 = User("u2", 1)
@@ -93,6 +99,13 @@ class TestUserNetwork(unittest.TestCase):
         self.assertEqual(len(network.users), 0)
         self.assertFalse(u2 in network.users)
         self.assertFalse(u1 in network.users)
+
+    def test_double_remove_user(self):
+        u1 = User("u1", 1)
+        network = UserNetwork()
+        network.add_user(u1)
+        network.remove_user(u1)
+        self.assertRaises(NonExistentUserError, network.remove_user, u1)
 
     def test_basic_total_infection(self):
         u1 = User("u1", 1)

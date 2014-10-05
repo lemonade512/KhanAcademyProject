@@ -1,10 +1,7 @@
 import unittest
-from user import User
+from user import User, DuplicateCoachError, DuplicateStudentError, MissingStudentError, MissingCoachError
 
 __author__ = 'Phillip Lemons'
-
-#TODO test circular relationships?
-#TODO test adding self to students or coaches
 
 
 class TestUser(unittest.TestCase):
@@ -37,13 +34,10 @@ class TestUser(unittest.TestCase):
         self.assertTrue(u1 in u3.students)
 
     def test_user_add_duplicate_coaches(self):
-        #TODO make this test for duplicate coach error
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u1.add_coach(u2)
-        u1.add_coach(u2)
-        u1.add_coach(u2)
-        u1.add_coach(u2)
+        self.assertRaises(DuplicateCoachError, u1.add_coach, u2)
 
         self.assertEqual(len(u1.coaches), 1)
         self.assertTrue(u2 in u1.coaches)
@@ -80,13 +74,10 @@ class TestUser(unittest.TestCase):
         self.assertTrue(u1 in u3.coaches)
 
     def test_user_add_duplicate_students(self):
-        #TODO make this test for duplicate student error
         u1 = User("u1", 1)
         u2 = User("u2", 1)
         u1.add_student(u2)
-        u1.add_student(u2)
-        u1.add_student(u2)
-        u1.add_student(u2)
+        self.assertRaises(DuplicateStudentError, u1.add_student, u2)
 
         self.assertEqual(len(u1.students), 1)
         self.assertTrue(u2 in u1.students)
@@ -132,8 +123,7 @@ class TestUser(unittest.TestCase):
         u2 = User("u2", 1)
         u1.add_student(u2)
         u1.remove_student(u2)
-        #TODO make this raise an error?
-        u1.remove_student(u2)
+        self.assertRaises(MissingStudentError, u1.remove_student, u2)
 
         self.assertEqual(len(u1.students), 0)
         self.assertFalse(u2 in u1.students)
@@ -168,8 +158,7 @@ class TestUser(unittest.TestCase):
         u2 = User("u2", 1)
         u1.add_coach(u2)
         u1.remove_coach(u2)
-        #TODO make this raise an error
-        u1.remove_coach(u2)
+        self.assertRaises(MissingCoachError, u1.remove_coach, u2)
 
         self.assertEqual(len(u1.coaches), 0)
         self.assertFalse(u1 in u2.students)
